@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "id": "ID-Anton23022025210133",
+    "name": "Anton Prasetyo",
+    "address": "Jl. Melati No. 17, Bandung",
+    "phone_number": "081234889122",
+    "application": "Koki",
+    "last_degree": "SMK",
+    "major": "Tata Boga"
+  },
+  "conversation": [
+    {
+      "question_id": 1,
+      "question": "Coba perkenalkan diri Anda secara singkat.",
+      "answer": "Nama saya Anton, orang-orang biasa panggil saya Anto. Saya udah kerja di dapur hampir lima tahun, mulai dari kitchen helper sampe akhirnya jadi cook di restoran kecil. Saya suka eksperimen dan belajar resep baru."
+    },
+    {
+      "question_id": 2,
+      "question": "Apa motivasi Anda melamar sebagai koki?",
+      "answer": "Karena saya ngerasa paling hidup kalo lagi di dapur. Ritme kerja cepat, panas, suara wajan — itu dunia yang saya suka. Saya ingin kerja di tempat yang lebih profesional."
+    },
+    {
+      "question_id": 3,
+      "question": "Pengalaman kerja Anda sebelumnya bagaimana?",
+      "answer": "Saya pernah kerja di dua tempat. Yang pertama warung makan, saya bantu prep dan goreng-goreng. Yang kedua restoran fusion, saya pegang bagian hot kitchen. Di sana saya diajarin soal plating juga."
+    },
+    {
+      "question_id": 4,
+      "question": "Apa pendidikan terakhir Anda?",
+      "answer": "Saya lulusan SMA jurusan Tata Boga, jadi dari sekolah pun udah sering masak dan ikut lomba-lomba kecil."
+    },
+    {
+      "question_id": 5,
+      "question": "Apakah Anda punya sertifikat terkait memasak?",
+      "answer": "Ada sertifikat pelatihan hygiene dan keamanan makanan. Saya juga ikut workshop masakan Asia waktu tahun kemarin."
+    },
+    {
+      "question_id": 6,
+      "question": "Bagaimana cara Anda menjaga higienitas saat bekerja?",
+      "answer": "Saya biasain area kerja bersih sebelum dan sesudah masak. Kalo tangan megang bahan mentah langsung saya cuci. Pokoknya bersih itu penting banget."
+    },
+    {
+      "question_id": 7,
+      "question": "Bagaimana cara Anda menangani tekanan saat dapur sedang ramai?",
+      "answer": "Pertama saya fokus bikin ritme. Saya nggak panik, cuma jalanin urutan masakan sesuai tiket. Kadang saya ngomong kecil sendiri buat ngingetin step, hahaha. Yang penting jangan kebawa emosi."
+    },
+    {
+      "question_id": 8,
+      "question": "Apa tantangan terbesar dalam memasak menurut Anda?",
+      "answer": "Consistency. Hari ini enak, besok harus sama. Itu yang susah. Dan bikin rasa yang pas buat banyak lidah juga tantangan."
+    },
+    {
+      "question_id": 9,
+      "question": "Bagaimana kalau bahan tiba-tiba habis?",
+      "answer": "Biasanya saya cari substitusi yang aman. Kalo nggak memungkinkan, saya langsung koordinasi sama chef atau kasir biar info ke pelanggan."
+    },
+    {
+      "question_id": 10,
+      "question": "Pernah melakukan kesalahan besar di dapur?",
+      "answer": "Pernah. Saya salah seasoning satu batch sup. Rasanya jadi asin banget. Saya langsung ngomong ke atasan dan bikin ulang. Sejak itu saya lebih hati-hati."
+    },
+    {
+      "question_id": 11,
+      "question": "Bagaimana cara Anda belajar resep baru?",
+      "answer": "Saya suka nonton tutorial dan baca resep online, tapi saya selalu coba modifikasi dikit biar lebih cocok sama lidah lokal."
+    },
+    {
+      "question_id": 12,
+      "question": "Apakah Anda bisa bekerja dalam tim?",
+      "answer": "Bisa banget. Dapur itu kerjaan bareng-bareng. Kalo satu kacau, semuanya ikut kacau."
+    },
+    {
+      "question_id": 13,
+      "question": "Bagaimana menghadapi kritik pelanggan?",
+      "answer": "Saya terima aja. Kadang memang rasanya kurang cocok buat beberapa orang. Saya perbaiki kalau memang salah saya."
+    },
+    {
+      "question_id": 14,
+      "question": "Apa menu yang paling Anda kuasai?",
+      "answer": "Masakan tumis-tumisan dan grill. Saya juga lumayan jago bikin ramen kuah bening."
+    },
+    {
+      "question_id": 15,
+      "question": "Bagaimana Anda memastikan makanan matang dengan sempurna?",
+      "answer": "Saya pakai timer, cek warna, cek tekstur. Kadang saya tusuk sedikit buat lihat tingkat kematangan."
+    },
+    {
+      "question_id": 16,
+      "question": "Ceritakan situasi saat Anda harus memecahkan masalah mendadak.",
+      "answer": "Pernah gas kompor habis pas jam rame. Saya langsung pindah ke kompor belakang dan minta helper ganti gas tanpa ganggu alur masak."
+    },
+    {
+      "question_id": 17,
+      "question": "Apakah Anda bersedia kerja shift panjang sampai malam?",
+      "answer": "Bisa, tapi kalo terus-terusan shift malam mungkin saya minta jadwal yang seimbang."
+    },
+    {
+      "question_id": 18,
+      "question": "Berapa ekspektasi gaji Anda?",
+      "answer": "Saya berharap sekitar 4 juta sampai 4,5 juta. Tapi bisa disesuaikan sama kondisi dapur dan jam kerja."
+    }
+  ]
+}

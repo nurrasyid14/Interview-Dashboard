@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "id": "ID-Ratna23022025210211",
+    "name": "Ratna Wijayanti",
+    "address": "Jl. Pahlawan No. 88, Surabaya",
+    "phone_number": "081299345188",
+    "application": "Manager",
+    "last_degree": "S1",
+    "major": "Manajemen Bisnis"
+  },
+  "conversation": [
+    {
+      "question_id": 1,
+      "question": "Silakan perkenalkan diri Anda.",
+      "answer": "Nama saya Ratna, lulusan Manajemen Bisnis. Saya sudah bekerja di bidang retail selama tujuh tahun, tiga tahun terakhir sebagai supervisor. Saya senang membangun sistem kerja yang rapi dan tim yang solid."
+    },
+    {
+      "question_id": 2,
+      "question": "Apa motivasi Anda melamar posisi ini?",
+      "answer": "Saya ingin naik tingkat ke posisi yang punya pengaruh lebih besar terhadap keputusan operasional. Saya merasa siap untuk memimpin unit yang lebih besar."
+    },
+    {
+      "question_id": 3,
+      "question": "Ceritakan pengalaman kepemimpinan Anda.",
+      "answer": "Saya pernah memimpin tim berisi 12 orang di toko retail. Saya yang ngatur jadwal, evaluasi mingguan, dan program training internal."
+    },
+    {
+      "question_id": 4,
+      "question": "Apa pendidikan terakhir Anda?",
+      "answer": "S1 Manajemen Bisnis dari Universitas Negeri Surabaya."
+    },
+    {
+      "question_id": 5,
+      "question": "Apa tantangan terbesar dalam memimpin?",
+      "answer": "Membuat semua orang tetap sejalan. Kadang ada yang nggak cocok sama sistem atau rekan kerja. Komunikasi jadi kunci."
+    },
+    {
+      "question_id": 6,
+      "question": "Bagaimana Anda menyelesaikan konflik tim?",
+      "answer": "Biasanya saya ajak bicara dua sisi secara terpisah dulu biar tahu akar masalahnya, baru saya satukan dan cari jalan tengah."
+    },
+    {
+      "question_id": 7,
+      "question": "Bagaimana Anda membuat keputusan penting saat informasi kurang lengkap?",
+      "answer": "Saya pakai data yang ada, pengalaman sebelumnya, dan mempertimbangkan risiko serta dampaknya ke tim. Lebih baik ambil keputusan daripada menunda terlalu lama."
+    },
+    {
+      "question_id": 8,
+      "question": "Apa pendekatan Anda dalam memecahkan masalah operasional?",
+      "answer": "Saya coba breakdown masalahnya dulu. Kadang masalahnya bukan di orangnya, tapi di prosedur. Jadi saya analisis alurnya."
+    },
+    {
+      "question_id": 9,
+      "question": "Bagaimana Anda memastikan target tercapai?",
+      "answer": "Saya buat target mingguan kecil. Tim lebih mudah ngejar step kecil daripada target besar yang jauh."
+    },
+    {
+      "question_id": 10,
+      "question": "Pernah gagal mencapai target?",
+      "answer": "Pernah. Waktu itu penjualan turun tajam. Setelah saya evaluasi, ternyata display produk kurang menarik. Kami revisi dan naik lagi."
+    },
+    {
+      "question_id": 11,
+      "question": "Bagaimana gaya kepemimpinan Anda?",
+      "answer": "Saya cukup fleksibel. Biasanya saya demokratis, tapi kalau sedang urgent saya bisa ambil gaya direct biar cepat."
+    },
+    {
+      "question_id": 12,
+      "question": "Apa kekuatan Anda sebagai pemimpin?",
+      "answer": "Saya komunikatif dan cepat beradaptasi. Saya juga cukup tegas soal disiplin."
+    },
+    {
+      "question_id": 13,
+      "question": "Bagaimana cara Anda memberi motivasi?",
+      "answer": "Saya biasanya puji hal-hal kecil dan kasih feedback konstruktif. Orang lebih semangat kalau tahu usahanya dihargai."
+    },
+    {
+      "question_id": 14,
+      "question": "Apa kelemahan Anda?",
+      "answer": "Kadang saya terlalu perfeksionis, jadi suka kerjain sendiri kalau hasilnya nggak sesuai ekspektasi. Tapi sekarang saya belajar delegate lebih baik."
+    },
+    {
+      "question_id": 15,
+      "question": "Ceritakan situasi mendadak yang pernah Anda tangani.",
+      "answer": "Pernah barang dateng telat padahal ada promo besar. Saya langsung atur tim buat bikin display sementara dan update jadwal shift."
+    },
+    {
+      "question_id": 16,
+      "question": "Bagaimana Anda mengukur performa karyawan?",
+      "answer": "Saya pakai KPI, tapi juga lihat sikap dan disiplin. KPI angka doang kadang nggak cukup."
+    },
+    {
+      "question_id": 17,
+      "question": "Apakah Anda siap kerja lembur?",
+      "answer": "Siap kalau memang ada kebutuhan mendesak, tapi saya tetap utamakan manajemen waktu yang baik."
+    },
+    {
+      "question_id": 18,
+      "question": "Berapa ekspektasi gaji Anda?",
+      "answer": "Saya harap di kisaran 7 sampai 8 juta, tapi bisa dinegosiasikan tergantung beban kerja."
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "metadata": {
+    "id": "ID-Dedi23022025211244",
+    "name": "Dedi Hartono",
+    "address": "Jl. Mawar No. 5, Depok",
+    "phone_number": "081328778442",
+    "application": "Office Boy",
+    "last_degree": "SMP",
+    "major": "-"
+  },
+  "conversation": [
+    {
+      "question_id": 1,
+      "question": "Coba perkenalkan diri Anda.",
+      "answer": "Nama saya Dedi, umur 29 tahun. Saya biasa kerja sebagai OB di kantor kecil dan juga pernah bantu-bantu di ruko. Saya orangnya telaten sama kebersihan dan suka kerja yang banyak gerak."
+    },
+    {
+      "question_id": 2,
+      "question": "Apa motivasi Anda melamar pekerjaan ini?",
+      "answer": "Karena saya cari pekerjaan yang stabil dan jam kerjanya jelas. Saya juga memang suka kalau ruangan itu bersih, rasanya plong aja gitu."
+    },
+    {
+      "question_id": 3,
+      "question": "Ceritakan pengalaman kerja Anda.",
+      "answer": "Saya pernah dua tahun jadi OB. Saya bersihin ruangan kerja, toilet, pantry, sama kadang bantu ambil dokumen ke luar. Bos bilang kerjaan saya rapi, cuma kadang saya agak lambat kalau lagi capek."
+    },
+    {
+      "question_id": 4,
+      "question": "Apa pendidikan terakhir Anda?",
+      "answer": "Saya lulus SMP saja, habis itu langsung kerja bantu keluarga."
+    },
+    {
+      "question_id": 5,
+      "question": "Apa tantangan terbesar saat bekerja sebagai OB?",
+      "answer": "Kadang kalau banyak acara, ruangan cepat kotor. Harus bolak balik ngepel. Tapi ya dijalanin aja."
+    },
+    {
+      "question_id": 6,
+      "question": "Bagaimana Anda mengatur prioritas tugas?",
+      "answer": "Saya lihat mana yang paling urgent. Misal toilet kotor duluan. Baru ruangan lain. Saya biasanya muter dua kali sehari."
+    },
+    {
+      "question_id": 7,
+      "question": "Apa yang Anda lakukan jika menemukan barang hilang?",
+      "answer": "Saya lapor ke atasan atau bagian keamanan. Saya nggak berani megang aneh-aneh."
+    },
+    {
+      "question_id": 8,
+      "question": "Pernah menerima komplain?",
+      "answer": "Pernah, dulu lantai masih agak lengket. Saya salah campur cairan pembersih. Tapi saya bersihin ulang kok."
+    },
+    {
+      "question_id": 9,
+      "question": "Bagaimana Anda menangani pekerjaan mendadak?",
+      "answer": "Saya kerjain dulu yang mendadak. Misal ada tumpahan kopi, saya langsung ambil lap dan bersihin."
+    },
+    {
+      "question_id": 10,
+      "question": "Apa alat kebersihan yang paling sering Anda pakai?",
+      "answer": "Sapu, pel, lap microfiber, sama cairan pembersih kaca. Kadang saya punya trik kecil biar baunya tahan lama."
+    },
+    {
+      "question_id": 11,
+      "question": "Bagaimana Anda menjaga kerapihan peralatan?",
+      "answer": "Saya simpan di gudang kecil. Setelah pakai saya bilas dan jemur. Saya nggak mau alat bau jamur."
+    },
+    {
+      "question_id": 12,
+      "question": "Bagaimana Anda berkomunikasi dengan karyawan lain?",
+      "answer": "Saya biasa ngomong seperlunya aja. Kalau mereka minta tolong ya saya bantu. Saya orangnya nggak banyak bicara tapi kerja beres."
+    },
+    {
+      "question_id": 13,
+      "question": "Bagaimana sikap Anda jika ditegur?",
+      "answer": "Saya terima. Saya tahu kadang saya juga salah. Jadi saya perbaiki aja."
+    },
+    {
+      "question_id": 14,
+      "question": "Apa kebiasaan kerja yang Anda jaga?",
+      "answer": "Datang lebih awal. Saya suka nyapu sebelum orang lain datang."
+    },
+    {
+      "question_id": 15,
+      "question": "Pernah menghadapi situasi darurat?",
+      "answer": "Pernah kebakaran kecil di pantry. Saya matiin gas, matiin listrik, dan panggil staf lain."
+    },
+    {
+      "question_id": 16,
+      "question": "Apakah Anda bisa bekerja sendiri tanpa diawasi?",
+      "answer": "Bisa, saya malah lebih suka karena kerjaan jadi lebih fokus."
+    },
+    {
+      "question_id": 17,
+      "question": "Apakah Anda siap kerja shift pagi sampai sore?",
+      "answer": "Siap. Kadang kalo pulang agak telat juga nggak apa, asal jangan tiap hari."
+    },
+    {
+      "question_id": 18,
+      "question": "Berapa ekspektasi gaji Anda?",
+      "answer": "Saya harap sekitar dua koma lima sampe tiga juta. Yang penting pas sama kerjaannya."
+    }
+  ]
+}
