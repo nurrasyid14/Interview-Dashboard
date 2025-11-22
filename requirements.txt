@@ -1,47 +1,9 @@
-# -------------------------------
-# Core Web Framework
-# -------------------------------
-fastapi
-uvicorn[standard]
 streamlit
-
-# -------------------------------
-# Data Handling & Validation
-# -------------------------------
-pydantic
-python-dateutil
 pandas
 numpy
-
-# -------------------------------
-# NLP / Text Mining
-# -------------------------------
+python-dateutil
 nltk
-spacy
 scikit-learn
-gensim
-
-# If using spaCy models you will install separately:
-# python -m spacy download en_core_web_sm
-
-# -------------------------------
-# Machine Learning Utilities
-# -------------------------------
 scipy
-
-# -------------------------------
-# File Handling & Storage
-# -------------------------------
-pyyaml
-
-# -------------------------------
-# Logging & Monitoring
-# -------------------------------
 loguru
-
-# -------------------------------
-# Optional Enhancements
-# -------------------------------
-tqdm                   # for pipeline progress bars
-python-dotenv          # for environment variables (.env)
-joblib                 # for caching and model persistence
+pyyaml

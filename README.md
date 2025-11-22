@@ -70,9 +70,9 @@ Kesulitan pertanyaan akan ditentukan pada blok selanjutnya.
 x
 ```
 ---
-Cara kerja blok ini adalah dengan menampilkan 2+16 pertanyaan, yang dimana output akan berupa csv dengan nama {file_id}.csv dengan isi kolom yang akan terus di-append seiring dengan terjawabnya pertanyaan, sehingga akan ada 19 kolom pada pertanyaan terakhir dengan value berupa transkrip pertanyaan di baris pertama, transkrip jawaban di baris kedua, dan skor kelayakan pada baris ketiga (kecuali kolom ID yang di-exclude).
+Cara kerja blok ini adalah dengan menampilkan 2+16 pertanyaan, yang dimana output akan berupa csv dengan nama {file_id}.csv dengan isi kolom yang akan terus di-append seiring dengan terjawabnya pertanyaan, sehingga akan ada 20 kolom pada pertanyaan terakhir dengan value berupa transkrip pertanyaan di baris pertama, transkrip jawaban di baris kedua, dan skor kelayakan pada baris ketiga (kecuali kolom ID yang di-exclude).
 
-Pertanyaan akan diambil dari bank pertanyaan di app/modules/QnA/questions.py yang akan menyimpan 4 list untuk levels, beginner, intermediate & advanced. dengan len masing masing 2,16,16,16.
+Pertanyaan akan diambil dari bank pertanyaan di app/modules/QnA/questions.py yang akan menyimpan 4 list untuk levels, beginner, intermediate & advanced +1 pertanyaan tentang ekspektasi gaji. dengan len masing masing 2,16,16,16,1.
 
 - 2 Pertanyaan pertama akan menentukan kesulitan melalui pertanyaan pengalaman kerja:
 
@@ -93,6 +93,7 @@ Kolom-kolom dalam csv:
 .
 .
 19. Q16
+20. Wage_Expectation : int
 ```
 
 ### **3. Evaluator & Reporter**
