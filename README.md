@@ -24,10 +24,18 @@ Kendati *mock-up* ini berfokus pada metode **Text Mining**, namun harapan keluar
 
 
 $$
-	ext{Layak} = \frac{\operatorname{avg}\big(\text{Skor Jawaban}\big) + \dfrac{\text{Skor Sentimen}+1}{2}}{2}
+\text{Layak}
+= 
+\frac{
+    \operatorname{avg}(\text{Skor Jawaban})
+    +
+    \dfrac{\text{Skor Sentimen}+1}{2}
+}{2}
 $$
 
-Catatan: `Skor Sentimen` memiliki rentang $$([-1,1]\)$$ sehingga kita menskalakan menjadi $$([0,1]\)$$ dengan $$((\text{Skor Sentimen}+1)/2\)$$ sebelum digabung. Dengan skala ini dan asumsi $$`avg(Skor Jawaban) \in [0,1]`$$, jika $$`avg=1`$$ maka:
+
+Catatan: Skor Sentimen memiliki rentang $[-1,1]$ sehingga kita menskalakan menjadi $[0,1]$ dengan $(\text{Skor Sentimen}+1)/2$ sebelum digabungkan. Dengan skala ini dan asumsi $\operatorname{avg}(\text{Skor Jawaban}) \in [0,1]$, jika $\operatorname{avg}=1$ maka:
+
 
 - `Skor Sentimen = 0` → `Layak = 0.75`
 - `Skor Sentimen = -1` → `Layak = 0.5`
@@ -36,8 +44,13 @@ P.S Asumsi rata rata skor Jawaban adalah 1 alias sempurna.
 Persamaan ini ekuivalen dengan bentuk aljabar:
 
 $$
-	ext{Layak} = \tfrac{1}{2}\,\operatorname{avg}(\text{Skor Jawaban}) + \tfrac{1}{4}(\text{Skor Sentimen}+1)
+\text{Layak}
+=
+\frac{1}{2}\,\operatorname{avg}(\text{Skor Jawaban})
++
+\frac{1}{4}\,(\text{Skor Sentimen}+1)
 $$
+
 
 ---
 ## **Blok Program**
