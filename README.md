@@ -22,7 +22,7 @@ Kendati *mock-up* ini berfokus pada metode **Text Mining**, namun harapan keluar
 - Skor Relevance (range 0 s/d 1)
 - Skor persentase rating kelayakan (range 0 s/d 1)
 
-
+``` latex
 $$
 \text{Layak}
 = 
@@ -32,17 +32,14 @@ $$
     \dfrac{\text{Skor Sentimen}+1}{2}
 }{2}
 $$
-
-
-Catatan: Skor Sentimen memiliki rentang $[-1,1]$ sehingga kita menskalakan menjadi $[0,1]$ dengan $(\text{Skor Sentimen}+1)/2$ sebelum digabungkan. Dengan skala ini dan asumsi $\operatorname{avg}(\text{Skor Jawaban}) \in [0,1]$, jika $\operatorname{avg}=1$ maka:
-
+```
 
 - `Skor Sentimen = 0` → `Layak = 0.75`
 - `Skor Sentimen = -1` → `Layak = 0.5`
 P.S Asumsi rata rata skor Jawaban adalah 1 alias sempurna.
 
 Persamaan ini ekuivalen dengan bentuk aljabar:
-
+``` latex
 $$
 \text{Layak}
 =
@@ -50,7 +47,7 @@ $$
 +
 \frac{1}{4}\,(\text{Skor Sentimen}+1)
 $$
-
+```
 
 ---
 ## **Blok Program**
