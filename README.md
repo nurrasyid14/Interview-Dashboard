@@ -146,3 +146,6 @@ app/
 └── README.md                      # High-level documentation for backend structure and workflow
 ```
 ---
+## **Lampiran**
+1. [GitHub Repository](https://github.com/nurrasyid14/Interview-Dashboard)
+2. [Streamlit App](https:sdt07-018-textmining.streamlit.app)
