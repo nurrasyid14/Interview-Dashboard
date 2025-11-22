@@ -22,23 +22,23 @@ Kendati *mock-up* ini berfokus pada metode **Text Mining**, namun harapan keluar
 - Skor Relevance (range 0 s/d 1)
 - Skor persentase rating kelayakan (range 0 s/d 1)
 
-``` LaTeX
-\[
-	ext{Layak} = \frac{\operatorname{avg}\big(\text{Skor Jawaban}\big) + \dfrac{\text{Skor Sentimen}+1}{2}}{2}
-\]
-```
 
-Catatan: `Skor Sentimen` memiliki rentang \([-1,1]\) sehingga kita menskalakan menjadi \([0,1]\) dengan \((\text{Skor Sentimen}+1)/2\) sebelum digabung. Dengan skala ini dan asumsi `avg(Skor Jawaban) \in [0,1]`, jika `avg=1` maka:
+$$
+	ext{Layak} = \frac{\operatorname{avg}\big(\text{Skor Jawaban}\big) + \dfrac{\text{Skor Sentimen}+1}{2}}{2}
+$$
+
+Catatan: `Skor Sentimen` memiliki rentang $$([-1,1]\)$$ sehingga kita menskalakan menjadi $$([0,1]\)$$ dengan $$((\text{Skor Sentimen}+1)/2\)$$ sebelum digabung. Dengan skala ini dan asumsi $$`avg(Skor Jawaban) \in [0,1]`$$, jika $$`avg=1`$$ maka:
 
 - `Skor Sentimen = 0` → `Layak = 0.75`
 - `Skor Sentimen = -1` → `Layak = 0.5`
+P.S Asumsi rata rata skor Jawaban adalah 1 alias sempurna.
 
 Persamaan ini ekuivalen dengan bentuk aljabar:
-``` LaTeX
-\[
+
+$$
 	ext{Layak} = \tfrac{1}{2}\,\operatorname{avg}(\text{Skor Jawaban}) + \tfrac{1}{4}(\text{Skor Sentimen}+1)
-\]
-```
+$$
+
 ---
 ## **Blok Program**
 ### **1. Auth**
