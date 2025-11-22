@@ -29,7 +29,8 @@ P.S Asumsi rata rata skor Jawaban adalah 1 alias sempurna.
 
 
 Persamaan ini ekuivalen dengan bentuk aljabar:
-![formula](https://latex.codecogs.com/svg.image?\text{Layak}=\frac{\operatorname{avg}(\text{Skor%20Jawaban})+\frac{\text{Skor%20Sentimen}+1}{2}}{2})
+
+![formula](https://latex.codecogs.com/svg.image?\bg{transparent}\color{white}\text{Layak}=\frac{\operatorname{avg}(\text{Skor%20Jawaban})+\frac{\text{Skor%20Sentimen}+1}{2}}{2})
 
 ---
 ## **Blok Program**
