@@ -1,4 +1,4 @@
-# **Text Mining : AI Interview EValuation System**
+# **Text Mining : AI Interview Evaluation System**
 ---
 ## **Overview**
 xx
@@ -15,6 +15,8 @@ xx
 xx
 ### **4. Dashboard Builder -- Interface Block**
 xx
+---
+
 ---
 ## **Arsitektur Program**
 ``` log
