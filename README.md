@@ -75,6 +75,7 @@ Cara kerja blok ini adalah dengan menampilkan 2+16 pertanyaan, yang dimana outpu
 Pertanyaan akan diambil dari bank pertanyaan di app/modules/QnA/questions.py yang akan menyimpan 4 list untuk levels, beginner, intermediate & advanced. dengan len masing masing 2,16,16,16.
 
 - 2 Pertanyaan pertama akan menentukan kesulitan melalui pertanyaan pengalaman kerja:
+
 | Lama Kerja (Bulan) | Kategori Kesulitan |
 | ------------------ | ------------------ |
 | `< 12`             | Mudah              |
