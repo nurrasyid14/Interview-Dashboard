@@ -149,4 +149,4 @@ app/
 ---
 ## **Lampiran**
 1. [GitHub Repository](https://github.com/nurrasyid14/Interview-Dashboard)
-2. [Streamlit App](https:sdt007-018-textmining.streamlit.app)
+2. [Streamlit App](https://sdt007-018-textmining.streamlit.app)
