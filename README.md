@@ -1,20 +1,68 @@
 # **Text Mining : AI Interview Evaluation System**
+Text Mining's Semester Project Assesment // Class of Text Mining Practicum - Applied Data Science - EEPIS
+---
+By:
+
+- 33246000007 [Sovia Wahyuningtyas] - Conceptor & Evaluator
+- 33246000018 [Muhamad Nur Rasyid]  - System Engineer
+---
+
 ---
 ## **Overview**
-xx
+*AI Interview Evaluation System* adalah Python-based web yang dirancang khusus untuk menentukan keputusan apakah kandidat pekerja layak untuk melanjutkan aplikasi ke tahap interview kedua -- yang artinya "*aim*" dari proyek ini adalah sebatas *mock-up* untuk menentukan kelayakan berdasarkan aspek aspek seperti: *Sentiment*, dan *Relevance* dengan pendekatan NLP melalui 3 blok utama, yakni:
+
+**1. Authorization** 
+**2. QnA & Judger**
+**3. Evaluator & Reporter**
+
 ---
 ## **Ekspektasi Output**
-xx
+Kendati *mock-up* ini berfokus pada metode **Text Mining**, namun harapan keluaran utama dari project ini adlaah berupa Dashboard Interaktif yang memuat informasi seperti halnya:
+- Skor Sentimen (range -1 s/d 1)
+- Skor Relevance (range 0 s/d 1)
+- Skor persentase rating kelayakan (range 0 s/d 1)
+
+``` LaTeX
+\[
+	ext{Layak} = \frac{\operatorname{avg}\big(\text{Skor Jawaban}\big) + \dfrac{\text{Skor Sentimen}+1}{2}}{2}
+\]
+```
+
+Catatan: `Skor Sentimen` memiliki rentang \([-1,1]\) sehingga kita menskalakan menjadi \([0,1]\) dengan \((\text{Skor Sentimen}+1)/2\) sebelum digabung. Dengan skala ini dan asumsi `avg(Skor Jawaban) \in [0,1]`, jika `avg=1` maka:
+
+- `Skor Sentimen = 0` → `Layak = 0.75`
+- `Skor Sentimen = -1` → `Layak = 0.5`
+
+Persamaan ini ekuivalen dengan bentuk aljabar:
+``` LaTeX
+\[
+	ext{Layak} = \tfrac{1}{2}\,\operatorname{avg}(\text{Skor Jawaban}) + \tfrac{1}{4}(\text{Skor Sentimen}+1)
+\]
+```
 ---
 ## **Blok Program**
 ### **1. Auth**
-xx
+``` UI
+x
+```
+---
+
+---
+c
 ### **2. QnA & Judger**
-xx
+``` UI
+x
+```
+---
+
 ### **3. Evaluator & Reporter**
-xx
+``` UI
+x
+```
 ### **4. Dashboard Builder -- Interface Block**
-xx
+``` UI
+x
+```
 ---
 
 ---
@@ -31,7 +79,7 @@ app/
 │   │
 │   ├── QnA/
 │   │   ├── questions.py           # Question bank for 18-item questionnaire (text + metadata)
-│   │   ├── text.py                # NLP engine: preprocessing, LDA topics, sentiment/semantic models
+│   │   ├── text_mining.py         # NLP engine: preprocessing, LDA topics, sentiment/semantic models
 │   │   └── decision.py            # Computes acceptance decisions based on clarity/semantic/relevance scores
 │   │
 │   ├── evaluation/
@@ -40,7 +88,7 @@ app/
 │   │   └── aggregator.py          # Merges metadata + scores + text mining into final dashboard CSV
 │   │
 │   ├── utils/
-│   │   ├── idgen.py               # Generates user IDs: ord(m,n,r)<timestamp><counter>
+│   │   ├── idgen.py               # Generates user IDs: ord(initial)<timestamp><counter>
 │   │   ├── validators.py          # Username rules, age ≥ 18 check, field validation schemas (e.g., Pydantic)
 │   │   └── pipeline.py            # Provides PipelineBlock base class + orchestrates multi-stage execution
 │   │
