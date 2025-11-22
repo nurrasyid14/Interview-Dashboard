@@ -1,3 +1,22 @@
+# **Text Mining : AI Interview EValuation System**
+---
+## **Overview**
+xx
+---
+## **Ekspektasi Output**
+xx
+---
+## **Blok Program**
+### **1. Auth**
+xx
+### **2. QnA & Judger**
+xx
+### **3. Evaluator & Reporter**
+xx
+### **4. Dashboard Builder -- Interface Block**
+xx
+---
+## **Arsitektur Program**
 ``` log
 app/
 ├── data/                          # Stored JSON/CSV/parquet outputs for all users, logs, and analysis artifacts
@@ -35,3 +54,4 @@ app/
 │
 └── README.md                      # High-level documentation for backend structure and workflow
 ```
+---
