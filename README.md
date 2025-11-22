@@ -22,32 +22,14 @@ Kendati *mock-up* ini berfokus pada metode **Text Mining**, namun harapan keluar
 - Skor Relevance (range 0 s/d 1)
 - Skor persentase rating kelayakan (range 0 s/d 1)
 
-``` latex
-$$
-\text{Layak}
-= 
-\frac{
-    \operatorname{avg}(\text{Skor Jawaban})
-    +
-    \dfrac{\text{Skor Sentimen}+1}{2}
-}{2}
-$$
-```
 
 - `Skor Sentimen = 0` → `Layak = 0.75`
 - `Skor Sentimen = -1` → `Layak = 0.5`
 P.S Asumsi rata rata skor Jawaban adalah 1 alias sempurna.
 
+
 Persamaan ini ekuivalen dengan bentuk aljabar:
-``` latex
-$$
-\text{Layak}
-=
-\frac{1}{2}\,\operatorname{avg}(\text{Skor Jawaban})
-+
-\frac{1}{4}\,(\text{Skor Sentimen}+1)
-$$
-```
+![formula](https://latex.codecogs.com/svg.image?\text{Layak}=\frac{\operatorname{avg}(\text{Skor%20Jawaban})+\frac{\text{Skor%20Sentimen}+1}{2}}{2})
 
 ---
 ## **Blok Program**
