@@ -3,70 +3,57 @@ from app.modules.auth.auth_manager import create_user, verify_user, load_user
 from app.modules.utils.validators import validate_username, validate_password
 from app.modules.frontend_loader import render_template
 
+st.set_page_config(page_title="Login", layout="centered")
+
+# Hide sidebar
+st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
+
 render_template("login.html", height=250)
-
-
-st.set_page_config(page_title="Auth - AI Interview", layout="centered")
-st.title("Login / Signup")
 
 if "auth" not in st.session_state:
     st.session_state.auth = False
 if "auth_user" not in st.session_state:
     st.session_state.auth_user = None
-if "judger" not in st.session_state:
-    st.session_state.judger = None
 
 def logout_clear():
-    for k in list(st.session_state.keys()):
-        del st.session_state[k]
+    st.session_state.clear()
     st.rerun()
-
-# show logout if logged in
-if st.session_state.get("auth"):
-    st.info(f"Already logged in as {st.session_state.auth_user}")
-    if st.button("Logout"):
-        logout_clear()
 
 tabs = st.tabs(["Login", "Signup"])
 
-with tabs[0]:  # Login tab
+with tabs[0]:
     with st.form("login_form"):
-        username = st.text_input("Username (lowercase)")
+        username = st.text_input("Username")
         password = st.text_input("Password", type="password")
         submit = st.form_submit_button("Login")
 
     if submit:
-        if not username or not password:
-            st.error("Fill both fields")
+        if verify_user(username, password):
+            st.session_state.auth = True
+            st.session_state.auth_user = username
+            st.session_state.user_metadata = load_user(username)
+            st.query_params["page"] = "identity"
+            st.rerun()
         else:
-            if verify_user(username, password):
-                st.success("Login successful")
-                st.session_state.auth = True
-                st.session_state.auth_user = username
-                # load metadata into session
-                st.session_state.user_metadata = load_user(username)
-                st.query_params["page"] = "identity"
-                st.rerun()
-            else:
-                st.error("Invalid credentials")
+            st.error("Invalid credentials")
 
-with tabs[1]:  # Signup tab
+with tabs[1]:
     with st.form("signup_form"):
-        new_username = st.text_input("Choose username (lowercase)", key="su_username")
+        new_username = st.text_input("Choose username", key="su_username")
         new_password = st.text_input("Choose password", type="password", key="su_password")
-        full_name = st.text_input("Full name (optional)", key="su_name")
-        signup = st.form_submit_button("Create account")
+        full_name = st.text_input("Full Name", key="su_name")
+        signup = st.form_submit_button("Signup")
 
     if signup:
         if not (new_username and new_password):
-            st.error("Please fill username and password")
+            st.error("Fill both fields")
         elif not validate_username(new_username):
-            st.error("Username invalid. Lowercase letters, digits, dot or underscore, must contain a letter.")
+            st.error("Invalid username")
         elif not validate_password(new_password, new_username):
-            st.error("Password does not meet complexity requirements.")
+            st.error("Password too weak")
         else:
             try:
                 create_user(new_username, new_password, full_name=full_name)
-                st.success("Account created. Please log in.")
+                st.success("Account created. Please login.")
             except FileExistsError:
-                st.error("Username already exists.")
+                st.error("Username exists")

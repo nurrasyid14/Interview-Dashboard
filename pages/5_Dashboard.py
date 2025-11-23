@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from app.modules.QnA.dashboard import DashboardBuilder
 
+st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
+
 st.set_page_config(page_title="Dashboard")
 
 # Hide sidebar

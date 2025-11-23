@@ -1,18 +1,16 @@
 import streamlit as st
 from app.modules.auth.auth_manager import load_user, update_user
-from app.modules.io_manager import save_json, USERS_DIR 
 from app.modules.utils.validators import validate_age
-from pathlib import Path
 
-st.set_page_config(page_title="Identity - AI Interview", layout="centered")
-st.title("Identity & Specialties")
+st.set_page_config(page_title="Identity", layout="centered")
+st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
 
-if not st.session_state.get("auth"):
-    st.warning("Please log in first.")
+if not st.session_state.auth:
+    st.warning("Please login first.")
     st.stop()
 
 username = st.session_state.auth_user
-user_meta = st.session_state.get("user_metadata") or load_user(username)
+user_meta = st.session_state.user_metadata
 
 with st.form("identity_form"):
     full_name = st.text_input("Full Name", value=user_meta.get("FullName", ""))
@@ -25,7 +23,7 @@ with st.form("identity_form"):
 
 if submitted:
     if birthdate and not validate_age(birthdate):
-        st.error("Birthdate invalid or under 18.")
+        st.error("Invalid or underage")
     else:
         updates = {
             "FullName": full_name,
@@ -38,6 +36,6 @@ if submitted:
         update_user(username, updates)
         st.session_state.user_metadata = load_user(username)
         st.session_state.identity_filled = True
-        st.success("Profile saved. Proceed to Interview.")
-        st.query_params["page"] = "interview"
+        st.success("Profile saved.")
+        st.query_params["page"] = "menu"
         st.rerun()

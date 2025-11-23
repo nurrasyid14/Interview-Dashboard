@@ -1,6 +1,8 @@
 # pages/4_Result.py
 import streamlit as st
 
+st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
+
 st.set_page_config(page_title="Result - AI Interview", layout="centered")
 st.title("Interview Result")
 

@@ -3,6 +3,8 @@ import streamlit as st
 from app.modules.QnA.questions import load_questions
 from app.modules.QnA.judger import Judger
 
+st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
+
 st.set_page_config(page_title="Interview - AI Interview", layout="centered")
 st.title("Interview")
 
