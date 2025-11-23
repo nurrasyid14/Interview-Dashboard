@@ -1,6 +1,10 @@
 import streamlit as st
 from app.modules.auth.auth_manager import create_user, verify_user, load_user
 from app.modules.utils.validators import validate_username, validate_password
+from app.modules.frontend_loader import render_template
+
+render_template("login.html", height=250)
+
 
 st.set_page_config(page_title="Auth - AI Interview", layout="centered")
 st.title("Login / Signup")

@@ -1,10 +1,15 @@
-# main.py
+#main.py
 import streamlit as st
+from app.modules.frontend_loader import load_css, load_js
 
-st.set_page_config(
-    page_title="AI Job Interview System",
-    layout="centered",
+st.set_page_config(page_title="AI Job Interview System",
+                    layout="centered",
+                    initial_sidebar_state="collapsed",
 )
+
+load_css()
+load_js()
+
 
 # ----------------------------------------------------------------------
 # Initialize session state
