@@ -1,35 +1,50 @@
-# pages/5_Dashboard.py
 import streamlit as st
-from app.modules.QnA.dashboard import DashboardBuilder
 import pandas as pd
+from app.modules.QnA.dashboard import DashboardBuilder
 
-st.set_page_config(page_title="Dashboard - AI Interview", layout="centered")
-st.title("Dashboard")
+st.set_page_config(page_title="Dashboard")
+
+# Hide sidebar
+st.markdown("""
+    <style>
+        section[data-testid="stSidebar"] {display: none;}
+    </style>
+""", unsafe_allow_html=True)
 
 if not st.session_state.get("auth"):
-    st.warning("Please log in first.")
-    st.stop()
+    st.warning("Please login first.")
+    st.query_params.update(page="login")
+    st.rerun()
 
-user_id = st.session_state.auth_user
-builder = DashboardBuilder(user_id)
-dashboard = builder.build()
+user = st.session_state.auth_user
 
-st.subheader("Identity")
-st.write(dashboard.get("identity"))
+builder = DashboardBuilder(user)
+dash = builder.build()
+
+st.title("Dashboard")
+
+st.write("### Identity")
+st.write(dash["identity"])
 
 col1, col2, col3 = st.columns(3)
-col1.metric("Relevance", dashboard["relevance_score"])
-col2.metric("Sentiment", dashboard["sentiment_score"])
-col3.metric("Overall", dashboard["overall_score"])
+col1.metric("Relevance", dash["relevance_score"])
+col2.metric("Sentiment", dash["sentiment_score"])
+col3.metric("Overall", dash["overall_score"])
 
 st.write("### Most Frequent Words")
-st.write(dashboard["most_frequent_words"])
+st.write(dash["most_frequent_words"])
 
 st.write("### Most Weighted Words")
-st.write(dashboard["most_weighted_words"])
+st.write(dash["most_weighted_words"])
 
-st.write("### Scores Bar Chart")
-bar = dashboard["bar_chart"]
-# Build dataframe for bar chart labels vs scores
-df = pd.DataFrame({"label": bar["labels"], "score": bar["scores"]})
-st.bar_chart(df.rename(columns={"label": "index"}).set_index("index"))
+st.write("### Final Score Chart")
+df = pd.DataFrame({
+    "Label": dash["bar_chart"]["labels"],
+    "Score": dash["bar_chart"]["scores"]
+}).set_index("Label")
+
+st.bar_chart(df)
+
+if st.button("Logout"):
+    st.session_state.clear()
+    st.rerun()
