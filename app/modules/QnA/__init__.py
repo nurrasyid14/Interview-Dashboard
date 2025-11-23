@@ -2,8 +2,9 @@
 QnA module initializer.
 
 Exposes:
-- QuestionBank       : Source of all interview questions.
-- Judger             : Main evaluator for scoring answers.
+- load_questions       : Get all interview questions by difficulty
+- Judger              : Main evaluator for conducting interviews
+- DecisionEngine      : Scoring and final decision maker
 
 - Text-mining engine components:
     Preprocessors (Tokenize, Stem, Lemma, BoW, TFIDF)
@@ -14,8 +15,11 @@ Exposes:
 from .questions import load_questions
 from .judger import Judger
 from .decisions import DecisionEngine
+from .questions import load_questions, QuestionBank
+from .judger import Judger, InterviewJudger
+from .decisions import DecisionEngine, FinalDecisions
 
-# Preprocessing polymorphism
+
 from .text_mining import (
     BasePreprocessor,
     Tokenizer,
@@ -23,23 +27,21 @@ from .text_mining import (
     Lemmatizer,
     BagOfWords,
     TFIDF,
-)
-
-# Sentiment polymorphism
-from .text_mining import (
     BaseSentiment,
     RuleBasedSentiment,
     BehavioralSentiment,
     LDASentiment,
+    behavioral_analyze,
+    TextMiningPipeline,  # Add main pipeline class
 )
-
-# High-level API
-from .text_mining import behavioral_analyze
 
 __all__ = [
     "load_questions",
+    "QuestionBank",
     "Judger",
+    "InterviewJudger",
     "DecisionEngine",
+    "FinalDecisions",
     "BasePreprocessor",
     "Tokenizer",
     "Stemmer",
@@ -51,4 +53,5 @@ __all__ = [
     "BehavioralSentiment",
     "LDASentiment",
     "behavioral_analyze",
+    "TextMiningPipeline",  # Export main pipeline
 ]

@@ -18,10 +18,13 @@ def save_json(data: dict, path: Path):
 def load_json(path: Path) -> dict:
     """
     Load JSON file and return dictionary.
-    Raises FileNotFoundError if path missing.
+    Added fallback for missing files instead of raising exception
     """
     path = Path(path)
     if not path.exists():
-        raise FileNotFoundError(f"JSON file not found: {path}")
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+        return {}
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        return {}

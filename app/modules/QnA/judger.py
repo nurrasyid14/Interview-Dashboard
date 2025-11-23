@@ -75,10 +75,13 @@ class Judger:
         Returns sentiment score in range [-1, 1], as the BehavioralSentiment
         engine produces. We'll store it as-is in row 3 and also use it later.
         """
-        tokens = self._preprocess_tokens(answer)
-        axes = self.behavior_engine.score_axes(tokens)
-        sentiment_score = round(sum(axes.values()) / 4, 4)
-        return sentiment_score
+        try:
+            tokens = self._preprocess_tokens(answer)
+            axes = self.behavior_engine.score_axes(tokens)
+            sentiment_score = round(sum(axes.values()) / 4, 4)
+            return sentiment_score
+        except Exception as e:
+            return 0.0
 
     # -------------------------------------------------------------------
     def _next_label(self) -> str:
@@ -109,26 +112,32 @@ class Judger:
           - increment counters and store locally
         Returns the sentiment score (float).
         """
-        # compute sentiment
-        sentiment_score = self._compute_sentiment_score(answer)
+        try:
+            # compute sentiment
+            sentiment_score = self._compute_sentiment_score(answer)
 
-        # store sequential scores and answers
-        self.scores.append(sentiment_score)
-        self.collected_answers.append(answer)
+            # store sequential scores and answers
+            self.scores.append(sentiment_score)
+            self.collected_answers.append(answer)
 
-        # determine label for this column (L1/L2/Q1..)
-        label = self._next_label()
+            # determine label for this column (L1/L2/Q1..)
+            label = self._next_label()
 
-        # Ensure rows length == 4: [label, question, answer, score]
-        rows = [label, question or "", answer or "", float(sentiment_score)]
+            # Ensure rows length == 4: [label, question, answer, score]
+            rows = [label, question or "", answer or "", float(sentiment_score)]
 
-        # Append column (csvio.append_column pads/truncates as needed)
-        append_column(self.file_path, col_name=label if label else f"Col{self._col_counter+1}", rows=rows)
+            # Append column (csvio.append_column pads/truncates as needed)
+            append_column(self.file_path, col_name=label if label else f"Col{self._col_counter+1}", rows=rows)
 
-        # increment internal counter
-        self._col_counter += 1
+            # increment internal counter
+            self._col_counter += 1
 
-        return float(sentiment_score)
+            return float(sentiment_score)
+        except Exception as e:
+            import traceback
+            print(f"Error in process_answer: {e}")
+            traceback.print_exc()
+            return 0.0
 
     # -------------------------------------------------------------------
     def append_wage_and_finalize_column(self, wage_expectation: int):
@@ -155,24 +164,35 @@ class Judger:
 
         Returns the final_report dict.
         """
-        # make sure wage column exists in CSV
-        self.append_wage_and_finalize_column(wage_expectation)
+        try:
+            # make sure wage column exists in CSV
+            self.append_wage_and_finalize_column(wage_expectation)
 
-        engine = DecisionEngine(self.company_budget)
+            engine = DecisionEngine(self.company_budget)
 
-        avg_sentiment = sum(self.scores[:16]) / len(self.scores[:16]) if len(self.scores) >= 16 else (sum(self.scores) / len(self.scores) if self.scores else 0.0)
+            avg_sentiment = sum(self.scores[:16]) / len(self.scores[:16]) if len(self.scores) >= 16 else (sum(self.scores) / len(self.scores) if self.scores else 0.0)
 
-        # Use only first 16 question sentiment scores for decision (per design)
-        question_scores = [float(x) for x in (self.scores[:16] if len(self.scores) >= 16 else self.scores)]
+            # Use only first 16 question sentiment scores for decision (per design)
+            question_scores = [float(x) for x in (self.scores[:16] if len(self.scores) >= 16 else self.scores)]
 
-        final_report = engine.judge(
-            question_scores=question_scores,
-            sentiment=avg_sentiment,
-            months_experience=months_experience,
-            wage_expectation=wage_expectation,
-        )
+            final_report = engine.judge(
+                question_scores=question_scores,
+                sentiment=avg_sentiment,
+                months_experience=months_experience,
+                wage_expectation=wage_expectation,
+            )
 
-        # append a FINAL column with the summary string (rows padded to 4)
-        append_column(self.file_path, col_name="FINAL", rows=["FINAL", "Summary", str(final_report), 0.0])
+            # append a FINAL column with the summary string (rows padded to 4)
+            append_column(self.file_path, col_name="FINAL", rows=["FINAL", "Summary", str(final_report), 0.0])
 
-        return final_report
+            return final_report
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            return {
+                "error": str(e),
+                "label": "Error",
+                "final_score": 0.0
+            }
+
+InterviewJudger = Judger

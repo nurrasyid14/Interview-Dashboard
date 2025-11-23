@@ -1,4 +1,4 @@
-# utils/idgen.py
+# app/modules/utils/idgen.py
 
 from datetime import datetime
 from pathlib import Path
@@ -10,17 +10,22 @@ def _ensure_counter_dir():
 
 def _load_counter(timestamp: str) -> int:
     """Load counter for this timestamp, return 0 if none."""
-    counter_file = COUNTER_DIR / f"{timestamp}.txt"
-    if counter_file.exists():
-        try:
+    try:
+        counter_file = COUNTER_DIR / f"{timestamp}.txt"
+        if counter_file.exists():
             return int(counter_file.read_text().strip())
-        except:
-            return 0
+    except Exception:
+        pass
     return 0
 
 def _save_counter(timestamp: str, value: int):
-    counter_file = COUNTER_DIR / f"{timestamp}.txt"
-    counter_file.write_text(str(value))
+    """Added error handling for counter file writes"""
+    try:
+        counter_file = COUNTER_DIR / f"{timestamp}.txt"
+        _ensure_counter_dir()
+        counter_file.write_text(str(value))
+    except Exception:
+        pass
 
 def generate_user_id(initials: str) -> str:
     """
@@ -28,8 +33,12 @@ def generate_user_id(initials: str) -> str:
     <ord_initials>-YYYYMMDD-HHMMSS-XXX
     Example: MNR -> 77-78-82-20251123-020000-001
     """
-    initials = initials.upper().strip()
-    ord_part = "-".join(str(ord(c)) for c in initials)
+    initials = (initials or "USR").upper().strip()[:3]  # Add default initials
+    
+    try:
+        ord_part = "-".join(str(ord(c)) for c in initials)
+    except Exception:
+        ord_part = "000"
 
     now = datetime.now()
     date_str = now.strftime("%Y%m%d")

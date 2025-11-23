@@ -107,3 +107,5 @@ class DecisionEngine:
             "label": label,
             "threshold_used": PASS_THRESHOLD
         }
+
+FinalDecisions = DecisionEngine

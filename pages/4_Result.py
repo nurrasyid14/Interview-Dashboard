@@ -1,40 +1,34 @@
+# pages/4_Result.py
 import streamlit as st
 
-st.set_page_config(page_title="Result")
-
-# Hide sidebar
-st.markdown("""
-    <style>
-        section[data-testid="stSidebar"] {display: none;}
-    </style>
-""", unsafe_allow_html=True)
+st.set_page_config(page_title="Result - AI Interview", layout="centered")
+st.title("Interview Result")
 
 if not st.session_state.get("auth"):
-    st.warning("Please login first.")
-    st.query_params.update(page="login")
-    st.rerun()
+    st.warning("Please log in first.")
+    st.stop()
 
-if not st.session_state.get("completed"):
-    st.info("Interview not finished.")
-    st.query_params.update(page="interview")
-    st.rerun()
+if not st.session_state.get("completed", False):
+    st.info("Interview not completed yet.")
+    st.stop()
 
-final = st.session_state.final_report
+final_report = st.session_state.get("final_report", {})
+st.subheader("Final Report")
+st.json(final_report)
 
-st.title("Final Interview Result")
-st.json(final)
-
-if final.get("label") == "Layak":
-    st.success("Accepted")
-elif final.get("label") == "Dipertimbangkan":
-    st.warning("To be considered")
+label = final_report.get("label", "Unknown")
+if label == "Layak":
+    st.success("Candidate accepted (Layak).")
+elif label == "Dipertimbangkan":
+    st.warning("Candidate to be considered.")
 else:
-    st.error("Rejected")
+    st.error("Candidate not accepted.")
 
 if st.button("Go to Dashboard"):
-    st.query_params.update(page="dashboard")
+    st.query_params["page"] = "dashboard"
     st.rerun()
 
 if st.button("Logout"):
-    st.session_state.clear()
+    for k in list(st.session_state.keys()):
+        del st.session_state[k]
     st.rerun()

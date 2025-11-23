@@ -87,3 +87,32 @@ def load_questions() -> Dict[str, List[str]]:
         "advanced": advanced_questions,
         "wage": [wage_question]
     }
+    
+class QuestionBank:
+    """Wrapper class for accessing interview questions with helper methods."""
+    def __init__(self):
+        self.questions = load_questions()
+
+    def get_all(self):
+        return self.questions
+
+    def get_by_level(self, level: str):
+        return self.questions.get(level, [])
+
+    # Expected by test suite:
+    def get_leveling_questions(self):
+        return self.questions["leveling"]
+
+    def get_beginner_questions(self):
+        return self.questions["beginner"]
+
+    def get_intermediate_questions(self):
+        return self.questions["intermediate"]
+
+    def get_advanced_questions(self):
+        return self.questions["advanced"]
+
+    def get_wage_question(self):
+        # wage is a list with 1 element
+        return self.questions["wage"][0]
+

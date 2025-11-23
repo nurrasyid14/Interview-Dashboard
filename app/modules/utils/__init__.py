@@ -16,7 +16,8 @@ from .validators import (
     validate_username,
     validate_age,
     validate_job_specialties,
-    validate_metadata
+    validate_metadata,
+    validate_password  # Add missing export
 )
 from .pipeline import PipelineBlock, CompositePipeline
 
@@ -27,6 +28,7 @@ __all__ = [
     "validate_age",
     "validate_job_specialties",
     "validate_metadata",
+    "validate_password",  # Add to __all__ exports
     "PipelineBlock",
     "CompositePipeline",
 ]

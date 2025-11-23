@@ -54,12 +54,34 @@ class DashboardBuilder:
     # BUILD DASHBOARD
     # -------------------------------
     def build(self) -> dict:
-        df = self.load()
+        try:
+            df = self.load()
+        except FileNotFoundError:
+            return {
+                "identity": self.user_id,
+                "relevance_score": 0.0,
+                "sentiment_score": 0.0,
+                "overall_score": 0.0,
+                "most_frequent_words": [],
+                "most_weighted_words": [],
+                "bar_chart": {"labels": [], "scores": [], "threshold": 0.8}
+            }
 
-        # Extract identity (stored in first column "ID" row 2 = answer)
-        identity = df["ID"][2] if "ID" in df.columns else self.user_id
+        # Extract identity (stored in first column row 2 = answer)
+        identity = df.iloc[2, 0] if df.shape[0] > 2 and df.shape[1] > 0 else self.user_id
 
         # Collect question scores (row index 3)
+        if df.shape[0] < 4:
+            return {
+                "identity": identity,
+                "relevance_score": 0.0,
+                "sentiment_score": 0.0,
+                "overall_score": 0.0,
+                "most_frequent_words": [],
+                "most_weighted_words": [],
+                "bar_chart": {"labels": [], "scores": [], "threshold": 0.8}
+            }
+
         score_row = df.iloc[3, :]  # row 3 is scores
 
         # Remove FINAL and Wage_Expectation scores
@@ -68,48 +90,45 @@ class DashboardBuilder:
         ].astype(float).tolist()
 
         # Relevance score (average of Q1..Q16)
-        relevance_score = sum(clean_scores[:16]) / 16 if clean_scores else 0.0
+        relevance_score = sum(clean_scores[:16]) / 16 if len(clean_scores) >= 16 else (sum(clean_scores) / len(clean_scores) if clean_scores else 0.0)
 
-        # Sentiment = average of row-3 scores (since each is already [-1..1])
-        sentiment_score = relevance_score * 2 - 1  # reverse mapping if needed
+        # Sentiment = use relevance directly (already normalized 0-1)
+        sentiment_score = relevance_score * 2 - 1  # reverse mapping to [-1, 1]
 
         # Overall (same formula as decision engine)
         overall_score = (relevance_score + (sentiment_score+1)/2) / 2
 
-        # -------------------------------
         # MOST FREQUENT WORDS
-        # -------------------------------
         answers = df.iloc[2, :].astype(str).tolist()  # row 2 = answers
         all_tokens = []
         for ans in answers:
-            all_tokens.extend(self.preprocess(ans))
+            try:
+                all_tokens.extend(self.preprocess(ans))
+            except Exception:
+                continue
 
         freq = Counter(all_tokens)
         most_frequent = freq.most_common(3)
 
-        # -------------------------------
         # MOST WEIGHTED WORDS using BehavioralSentiment axes
-        # -------------------------------
         axis_scores = {}
         for word in all_tokens:
-            axes = self.behavior.score_axes([word])
-            axis_scores[word] = sum(axes.values())
+            try:
+                axes = self.behavior.score_axes([word])
+                axis_scores[word] = sum(axes.values())
+            except Exception:
+                continue
 
         weighted_sorted = sorted(axis_scores.items(), key=lambda x: x[1], reverse=True)
         most_weighted = weighted_sorted[:3]
 
-        # -------------------------------
         # BAR CHART DATA
-        # -------------------------------
         bar_data = {
             "labels": list(df.columns),
             "scores": score_row.astype(float).tolist(),
             "threshold": 0.8
         }
 
-        # -------------------------------
-        # FINAL OUTPUT DICT
-        # -------------------------------
         return {
             "identity": identity,
             "relevance_score": round(relevance_score, 4),

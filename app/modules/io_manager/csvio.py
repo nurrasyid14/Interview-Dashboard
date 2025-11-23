@@ -20,27 +20,20 @@ def ensure_csv(path: Path, headers: list | None = None):
         return
 
     if not headers:
-        # create an empty DataFrame (no Q columns) but keep the 4-row convention
-        df = pd.DataFrame()  # no columns yet
-        # create placeholder rows (0..3) to keep consistent indexing if desired
-        df = pd.DataFrame([[]])  # initially one empty row
+        df = pd.DataFrame([[]])
         df.to_csv(path, index=False)
         return
 
     # If headers provided, create CSV with 4 logical rows (labels, questions, answers, scores)
-    df = pd.DataFrame(columns=headers)
-    # Initialize 4 rows (we'll use row index 0..3)
-    # Row 0: Labels (use headers as labels)
-    # Row 1: Questions (empty strings)
-    # Row 2: Answers (empty strings)
-    # Row 3: Scores (zeros)
     if len(headers) > 0:
-        # build rows as a dict-of-lists consistent with columns
-        row0 = headers
-        row1 = [""] * len(headers)
-        row2 = [""] * len(headers)
-        row3 = [0.0] * len(headers)
+        row0 = headers  # Labels
+        row1 = [""] * len(headers)  # Questions (empty initially)
+        row2 = [""] * len(headers)  # Answers (empty initially)
+        row3 = [0.0] * len(headers)  # Scores (default 0)
         df = pd.DataFrame([row0, row1, row2, row3], columns=headers)
+    else:
+        df = pd.DataFrame()
+    
     path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False)
 
@@ -48,7 +41,7 @@ def ensure_csv(path: Path, headers: list | None = None):
 def append_column(path: Path, col_name: str, rows: list):
     """
     Append a new column with 4 rows.
-    rows: either [label, question, answer, score] or shorter; will be padded.
+    rows: [label, question, answer, score] or shorter; will be padded.
     If CSV doesn't exist -> create it with this column as the first column.
     """
     path = Path(path)
@@ -62,13 +55,6 @@ def append_column(path: Path, col_name: str, rows: list):
         rows = rows[:4]
 
     if not path.exists():
-        # create DataFrame with this single column
-        df = pd.DataFrame([rows], columns=[col_name]).T  # create vertical then transpose
-        # After transpose we'll have 4 rows with index 0..3 and a single column, but we want rows as row-index
-        df = pd.DataFrame([rows], columns=[col_name])  # simpler: one row per entire list -> we need 4 rows
-        # Build DataFrame properly: rows are 4 rows
-        df = pd.DataFrame([rows], columns=[col_name]).T
-        # Reformat to 4 named rows (0..3)
         df = pd.DataFrame({col_name: rows})
         df.to_csv(path, index=False)
         return
@@ -76,9 +62,8 @@ def append_column(path: Path, col_name: str, rows: list):
     # If file exists, load and append the column
     df = pd.read_csv(path)
 
-    # If file has fewer than 4 rows, try to expand it to have 4 rows
+    # If file has fewer than 4 rows, expand it to have 4 rows
     if df.shape[0] < 4:
-        # create missing rows with empty values for existing columns
         missing = 4 - df.shape[0]
         for _ in range(missing):
             df.loc[df.shape[0]] = [""] * df.shape[1]
@@ -96,7 +81,6 @@ def update_score_row(path: Path, col_name: str, score: float):
     df = pd.read_csv(path)
     if col_name not in df.columns:
         raise KeyError(f"Column {col_name} not found in {path}")
-    # Ensure 4 rows
     if df.shape[0] < 4:
         missing = 4 - df.shape[0]
         for _ in range(missing):
@@ -129,3 +113,44 @@ def append_csv(path: Path, df: pd.DataFrame):
         merged.to_csv(path, index=False)
     else:
         df.to_csv(path, index=False)
+
+def load_csv_report(path: Path):
+    """
+    Load a CSV report and return it as a pandas DataFrame.
+    Returns empty DataFrame if file doesn't exist.
+    """
+    path = Path(path)
+
+    if not path.exists():
+        return pd.DataFrame()  # Return empty table
+
+    try:
+        return pd.read_csv(path)
+    except Exception:
+        return pd.DataFrame()
+
+def append_to_csv(path: Path, df: pd.DataFrame):
+    """Compatibility alias for old function name."""
+    return append_csv(path, df)
+
+
+def create_csv_report(path: Path, df: pd.DataFrame = None):
+    """
+    Create a new CSV report.
+    Compatible with old signature where only 'path' is passed.
+    If df is None, create an empty CSV file.
+    """
+    ensure_directories()
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    # If no DataFrame provided → create empty CSV
+    if df is None:
+        empty_df = pd.DataFrame()
+        empty_df.to_csv(path, index=False)
+        return path
+
+    # If df provided → write normally
+    df.to_csv(path, index=False)
+    return path
+
