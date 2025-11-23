@@ -24,6 +24,12 @@ from .login import (
     get_user_metadata
 )
 
+from .auth_manager import (
+    create_user,
+    load_user,
+    verify_user,
+    update_user,
+)
 __all__ = [
     "build_metadata",
     "save_metadata",
@@ -32,4 +38,8 @@ __all__ = [
     "login",
     "user_exists",
     "get_user_metadata",
+    "create_user",
+    "load_user",
+    "verify_user",
+    "update_user",
 ]

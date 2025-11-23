@@ -1,4 +1,4 @@
-# app/modules/QnA/decision.py
+# app/modules/QnA/decisions.py
 """
 Decision engine for job-application interview scoring.
 
@@ -13,6 +13,8 @@ import math
 
 
 PHI = (1 + 5 ** 0.5) / 2   # Golden ratio 1.618...
+PASS_THRESHOLD = 0.8       # <--- Updated threshold
+CONSIDER_THRESHOLD = 0.6   
 
 
 class DecisionEngine:
@@ -43,13 +45,16 @@ class DecisionEngine:
         """
         Compute final suitability score (0–1).
 
-        scores   : 16 per-question scores (0–1)
+        scores   : list of per-question scores (0–1)
         sentiment: overall sentiment from text mining (-1 to 1)
         """
 
         avg_scores = sum(scores) / len(scores)
-        sent_component = (sentiment + 1) / 2   # map [-1,1] → [0,1]
 
+        # map sentiment [-1,1] → [0,1]
+        sent_component = (sentiment + 1) / 2
+
+        # final score = average of relevance + sentiment
         final = (avg_scores + sent_component) / 2
         return round(final, 4)
 
@@ -74,11 +79,6 @@ class DecisionEngine:
     ) -> Dict[str, any]:
         """
         Main interface for scoring.
-
-        question_scores    : list of 16 floats
-        sentiment          : overall sentiment (-1 to 1)
-        months_experience  : int
-        wage_expectation   : int
         """
 
         difficulty = self.determine_difficulty(months_experience)
@@ -89,10 +89,12 @@ class DecisionEngine:
 
         final_score = max(0.0, base_score - penalty)
 
-        # Labeling rule — adjust as needed
-        if final_score >= 0.75:
+        # -------------------------
+        # NEW LABEL LOGIC:
+        # -------------------------
+        if final_score >= PASS_THRESHOLD:
             label = "Layak"
-        elif final_score >= 0.6:
+        elif final_score >= CONSIDER_THRESHOLD:
             label = "Dipertimbangkan"
         else:
             label = "Tidak Layak"
@@ -102,5 +104,6 @@ class DecisionEngine:
             "base_score": base_score,
             "penalty": penalty,
             "final_score": round(final_score, 4),
-            "label": label
+            "label": label,
+            "threshold_used": PASS_THRESHOLD
         }

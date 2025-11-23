@@ -1,85 +1,119 @@
-# app/main.py
-
+# main.py
 import streamlit as st
-from app.modules.QnA.judger import Judger
-from app.modules.QnA.questions import (
-    beginner_questions,
-    intermediate_questions,
-    advanced_questions,
-    wage_question,
+
+st.set_page_config(
+    page_title="AI Job Interview System",
+    layout="centered",
 )
 
-st.set_page_config(page_title="AI Job Interview", layout="centered")
-st.title("AI Job Interview Evaluation System")
+# ----------------------------------------------------------------------
+# Initialize session state
+# ----------------------------------------------------------------------
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
 
-# ----------------------------
-# 1. Authentication / User Info
-# ----------------------------
-with st.form("auth_form"):
-    name = st.text_input("Full Name")
-    usn = st.text_input("USN")
-    address = st.text_input("Address")
-    position = st.radio(
-        "Select Position",
-        ["Accountant", "Chef", "Manager", "Supervisor", "Business Advisor"],
+if "user" not in st.session_state:
+    st.session_state.user = {}
+
+if "interview_started" not in st.session_state:
+    st.session_state.interview_started = False
+
+if "interview_done" not in st.session_state:
+    st.session_state.interview_done = False
+
+if "judger" not in st.session_state:
+    st.session_state.judger = None
+
+
+# ----------------------------------------------------------------------
+# Navbar (top)
+# ----------------------------------------------------------------------
+def navbar():
+    st.markdown(
+        """
+        <style>
+            .navbar {
+                background-color: #222;
+                padding: 12px;
+                border-radius: 6px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .navbar a {
+                color: #fff;
+                margin-right: 16px;
+                text-decoration: none;
+                font-weight: 500;
+            }
+            .navbar a:hover {
+                color: #1f77ff;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
     )
-    specialty = st.multiselect(
-        "Select Specialty", ["Option 1", "Option 2", "Option 3"]
-    )
-    auth_submitted = st.form_submit_button("Start Interview")
 
-if auth_submitted:
-    if not (name and usn and address):
-        st.error("Please fill all required fields!")
-    else:
-        pos_key = position.lower().replace(" ", "_")
-        # Initialize Judger
-        judger = Judger(user_id=usn, company_budget=5000)  # example budget
-        st.session_state['judger'] = judger
-        st.session_state['position'] = pos_key
-        st.session_state['q_index'] = 0
-        st.session_state['answers'] = []
-        st.session_state['level'] = "beginner"
-        st.success(f"Welcome {name}! Proceed to the interview questions.")
+    left_links = """
+        <div>
+            <a href="/">Home</a>
+            <a href="/Login">Login</a>
+            <a href="/Identity">Identity</a>
+            <a href="/Interview">Interview</a>
+            <a href="/Result">Result</a>
+            <a href="/Dashboard">Dashboard</a>
+        </div>
+    """
 
-# ----------------------------
-# 2. QnA Iteration
-# ----------------------------
-if 'judger' in st.session_state:
-    judger = st.session_state['judger']
-    pos_key = st.session_state['position']
-    q_index = st.session_state['q_index']
-    level = st.session_state['level']
+    right_links = """
+        <div>
+            <a href="/?logout=1">Logout</a>
+        </div>
+    """
 
-    # Select question bank
-    if level == "beginner":
-        q_bank = beginner_questions[pos_key]
-    elif level == "intermediate":
-        q_bank = intermediate_questions[pos_key]
-    else:
-        q_bank = advanced_questions[pos_key]
+    st.markdown(f'<div class="navbar">{left_links}{right_links}</div>', unsafe_allow_html=True)
 
-    if q_index < len(q_bank):
-        q_text = q_bank[q_index]
-        with st.form(f"q_form_{q_index}"):
-            answer = st.text_area(f"Q{q_index+1}: {q_text}")
-            submitted_answer = st.form_submit_button("Submit Answer")
 
-        if submitted_answer:
-            score = judger.process_answer(q_text, answer)
-            st.write(f"Score for this answer: {score}")
-            st.session_state['answers'].append(answer)
-            st.session_state['q_index'] += 1
+# ----------------------------------------------------------------------
+# Logout Handler
+# ----------------------------------------------------------------------
+def handle_logout():
+    if "logout" in st.query_params:
+        if st.query_params["logout"] == "1":
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+            st.rerun()
 
-    else:
-        # Wage expectation question
-        st.info("All questions completed! Please provide wage expectation.")
-        wage = st.number_input(
-            wage_question, min_value=0, step=100, format="%d"
-        )
-        submit_wage = st.button("Submit Wage")
-        if submit_wage:
-            # Assuming months_experience = 12 (can be modified to ask user)
-            final_report = judger.finalize(months_experience=12, wage_expectation=wage)
-            st.success("Interview Completed! Here is your final report:")
-            st.json(final_report)
+
+# ----------------------------------------------------------------------
+# Main App Entry
+# ----------------------------------------------------------------------
+def main():
+    handle_logout()
+    navbar()
+
+    st.title("Welcome to the AI Job Interview Evaluation System")
+
+    if not st.session_state.authenticated:
+        st.info("Please go to **Login** to continue.")
+        return
+
+    if st.session_state.authenticated and not st.session_state.get("identity_filled", False):
+        st.warning("Identity not completed. Proceed to **Identity** page.")
+        return
+
+    if (
+        st.session_state.authenticated
+        and st.session_state.get("identity_filled", False)
+        and not st.session_state.interview_done
+    ):
+        st.info("Proceed to **Interview** page.")
+        return
+
+    if st.session_state.interview_done:
+        st.success("Interview completed! See **Result** or **Dashboard**.")
+
+
+# ----------------------------------------------------------------------
+if __name__ == "__main__":
+    main()

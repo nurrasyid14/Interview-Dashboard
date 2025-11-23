@@ -10,7 +10,7 @@ Exports:
 """
 
 from .jsonio import save_json, load_json
-from .csvio import write_csv, append_csv
+from .csvio import write_csv, append_csv, ensure_csv, append_column, update_score_row
 from .storage_paths import USERS_DIR, REPORTS_DIR, TEMP_DIR, ensure_directories
 
 __all__ = [
@@ -22,4 +22,7 @@ __all__ = [
     "REPORTS_DIR",
     "TEMP_DIR",
     "ensure_directories",
+    "ensure_csv",
+    "append_column",
+    "update_score_row",
 ]
