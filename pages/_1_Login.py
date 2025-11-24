@@ -39,7 +39,7 @@ def render():
                 st.session_state.level = "leveling"
                 st.session_state.q_index = 0
                 st.session_state._leveling_count = 0
-                st.query_params(page="identity")
+                st.query_params["page"]="identity"
                 st.rerun()
             else:
                 st.error("Invalid credentials")
