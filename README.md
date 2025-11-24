@@ -110,41 +110,78 @@ Blok Pembuat Antarmuka
 ---
 ## **Arsitektur Program**
 ``` log
-app/
-├── data/                          # Stored JSON/CSV/parquet outputs for all users, logs, and analysis artifacts
-│
-├── modules/
-│   ├── auth/
-│   │   ├── login.py               # Handles user authentication, sessions, tokens
-│   │   ├── metadata_filler.py     # Processes form inputs, validates metadata (name, age, job, username)
-│   │   └── table_templater.py     # Generates JSON templates for user profile based on metadata
-│   │
-│   ├── QnA/
-│   │   ├── questions.py           # Question bank for 18-item questionnaire (text + metadata)
-│   │   ├── text_mining.py         # NLP engine: preprocessing, LDA topics, sentiment/semantic models
-│   │   └── decision.py            # Computes acceptance decisions based on clarity/semantic/relevance scores
-│   │
-│   ├── evaluation/
-│   │   ├── scorer.py              # Converts questionnaire answers into numerical scores (0–1)
-│   │   ├── analyser.py            # Text mining: clarity scoring, semantic similarity, relevance, frequent words
-│   │   └── aggregator.py          # Merges metadata + scores + text mining into final dashboard CSV
-│   │
-│   ├── utils/
-│   │   ├── idgen.py               # Generates user IDs: ord(initial)<timestamp><counter>
-│   │   ├── validators.py          # Username rules, age ≥ 18 check, field validation schemas (e.g., Pydantic)
-│   │   └── pipeline.py            # Provides PipelineBlock base class + orchestrates multi-stage execution
-│   │
-│   ├── io_manager/
-│   │   ├── jsonio.py              # Saves/loads metadata & questionnaire JSON files
-│   │   ├── csvio.py               # Writes/reads scoring, analysis, and dashboard CSV files
-│   │   └── storage_paths.py       # Standardizes file paths for all components (auth, QnA, analysis)
-│   │
-│   ├── logging/
-│   │   └── logger.py              # Central logging utility: pipeline logs, user logs, error tracking
-│   │
-│   └── __init__.py                # Marks modules folder as a Python package
-│
-└── README.md                      # High-level documentation for backend structure and workflow
+├── [app]
+│   ├── [data]
+│   │   ├── [logs]
+│   │   │   └── Err. Report
+│   │   ├── [reports]
+│   │   │   ├── dev.premium1.csv
+│   │   │   └── nurrasyid14_.csv
+│   │   ├── [users]
+│   │   │   └── dev.premium1.json
+│   │   └── README.md
+│   ├── [frontend]
+│   │   ├── [static]
+│   │   │   ├── script.js
+│   │   │   └── style.css
+│   │   ├── [templates]
+│   │   │   ├── dashboard.html
+│   │   │   └── login.html
+│   │   └── README.md
+│   ├── [modules]
+│   │   ├── [auth]
+│   │   │   ├── __init__.py
+│   │   │   ├── auth_manager.py
+│   │   │   ├── login.py
+│   │   │   ├── metadata_filler.py
+│   │   │   └── table_templater.py
+│   │   ├── [evaluation]
+│   │   │   ├── __init__.py
+│   │   │   ├── aggregator.py
+│   │   │   ├── analyser.py
+│   │   │   └── scorer.py
+│   │   ├── [io_manager]
+│   │   │   ├── __init__.py
+│   │   │   ├── csvio.py
+│   │   │   ├── jsonio.py
+│   │   │   └── storage_paths.py
+│   │   ├── [logging]
+│   │   │   └── logger.py
+│   │   ├── [QnA]
+│   │   │   ├── __init__.py
+│   │   │   ├── dashboard.py
+│   │   │   ├── decisions.py
+│   │   │   ├── judger.py
+│   │   │   ├── questions.py
+│   │   │   └── text_mining.py
+│   │   ├── [utils]
+│   │   │   ├── __init__.py
+│   │   │   ├── idgen.py
+│   │   │   ├── pipeline.py
+│   │   │   └── validators.py
+│   │   ├── __init__.py
+│   │   └── frontend_loader.py
+│   └── README.md
+├── [pages]
+│   ├── _1_Login.py
+│   ├── _2_Identity.py
+│   ├── _3_menu.py
+│   ├── _4_Interview.py
+│   ├── _5_Result.py
+│   └── _6_Dashboard.py
+├── [scripts]
+│   ├── quick_test.py
+│   ├── run.bat
+│   ├── run.sh
+│   └── test_suite.py
+├── .gitignore
+├── COMPLETE_GUIDE.md
+├── main.py
+├── package.json
+├── README_SETUP.md
+├── README.md
+├── REQUIREMENTS_EXPLANATION.md
+└── requirements.txt
 ```
 ---
 ## **Lampiran**
