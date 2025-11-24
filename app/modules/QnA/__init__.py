@@ -13,7 +13,6 @@ Exposes:
 """
 
 from .questions import load_questions
-from .judger import Judger
 from .decisions import DecisionEngine
 from .questions import load_questions, QuestionBank
 from .judger import Judger, InterviewJudger

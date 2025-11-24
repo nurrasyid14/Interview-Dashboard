@@ -42,6 +42,7 @@ from .io_manager.storage_paths import USERS_DIR, REPORTS_DIR, ensure_directories
 from .evaluation.scorer import Scorer
 from .evaluation.analyser import clarity_score, relevance_score, frequent_words, semantic_similarity
 from .evaluation.aggregator import build_dashboard
+from .frontend_loader import load_css, load_js
 
 # -----------------------
 # Operator / Logger (if any)
@@ -86,4 +87,8 @@ __all__ = [
     # Operator / Logger (if any)
     "get_logger",
     "log_user_event",
+
+    # Frontend Loader
+    "load_css",
+    "load_js",
 ]

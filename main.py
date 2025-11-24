@@ -1,7 +1,19 @@
 # main.py
 import streamlit as st
 from app.modules.frontend_loader import load_css, load_js
-from pages import render_page
+# main.py
+if not st.session_state.auth:
+    import pages._1_Login as login_page
+    login_page.render()
+
+elif st.session_state.auth and not st.session_state.identity_filled:
+    import pages._2_Identity as identity_page
+    identity_page.render()
+
+else:
+    import pages._3_Menu as menu_page
+    menu_page.render()
+
 
 # -------------------------
 # Load frontend assets
