@@ -77,5 +77,5 @@ def render():
                 st.session_state.completed = True
                 st.session_state.interview_done = True
                 st.success("Interview completed!")
-                st.experimental_set_query_params(page="result")
+                st.query_params(page="result")
                 st.rerun()

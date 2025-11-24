@@ -39,5 +39,5 @@ def render():
             st.session_state.user_metadata = load_user(username)
             st.session_state.identity_filled = True
             st.success("Profile saved.")
-            st.experimental_set_query_params(page="menu")
+            st.query_params(page="menu")
             st.rerun()

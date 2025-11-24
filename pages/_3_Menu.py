@@ -13,10 +13,10 @@ def render():
 
     col1, col2, col3 = st.columns(3)
     if col1.button("Dashboard"):
-        st.experimental_set_query_params(page="dashboard")
+        st.query_params(page="dashboard")
         st.rerun()
     if col2.button("Interview"):
-        st.experimental_set_query_params(page="interview")
+        st.query_params(page="interview")
         st.rerun()
     if col3.button("Logout"):
         st.session_state.clear()
