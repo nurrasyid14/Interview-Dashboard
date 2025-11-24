@@ -12,45 +12,37 @@ Exposes:
     behavioral_analyze() convenience function
 """
 
-from .questions import load_questions
-from .decisions import DecisionEngine
-from .questions import load_questions, QuestionBank
+from .questions import (
+    get_questions_for_position,
+    get_leveling_questions,
+    get_wage_question,
+    get_all_questions,
+    get_job_positions,
+    determine_level,
+)
 from .judger import Judger, InterviewJudger
 from .decisions import DecisionEngine, FinalDecisions
 
 
-from .text_mining import (
-    BasePreprocessor,
-    Tokenizer,
-    Stemmer,
-    Lemmatizer,
-    BagOfWords,
-    TFIDF,
-    BaseSentiment,
-    RuleBasedSentiment,
-    BehavioralSentiment,
-    LDASentiment,
-    behavioral_analyze,
-    TextMiningPipeline,  # Add main pipeline class
-)
+from .text_mining import(
+    analyze_sentiment,
+    calculate_relevance,
+    grading_formula,
+    extract_keywords,)
 
 __all__ = [
-    "load_questions",
-    "QuestionBank",
+    "get_questions_for_position",
+    "get_leveling_questions",
+    "get_wage_question",
+    "get_all_questions",
+    "get_job_positions",
+    "determine_level",
     "Judger",
     "InterviewJudger",
     "DecisionEngine",
     "FinalDecisions",
-    "BasePreprocessor",
-    "Tokenizer",
-    "Stemmer",
-    "Lemmatizer",
-    "BagOfWords",
-    "TFIDF",
-    "BaseSentiment",
-    "RuleBasedSentiment",
-    "BehavioralSentiment",
-    "LDASentiment",
-    "behavioral_analyze",
-    "TextMiningPipeline",  # Export main pipeline
-]
+    "analyze_sentiment",
+    "calculate_relevance",
+    "grading_formula",
+    "extract_keywords",
+    ]

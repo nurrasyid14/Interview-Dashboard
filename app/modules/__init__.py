@@ -13,21 +13,24 @@ Exposes all key submodules:
 # -----------------------
 # QnA Module
 # -----------------------
-from .QnA.questions import load_questions
-from .QnA.judger import Judger
-from .QnA.text_mining import (
-    BasePreprocessor,
-    Tokenizer,
-    Stemmer,
-    Lemmatizer,
-    BagOfWords,
-    TFIDF,
-    BaseSentiment,
-    RuleBasedSentiment,
-    LDASentiment,
-    BehavioralSentiment,
-    behavioral_analyze
+from .QnA.questions import (
+    get_questions_for_position,
+    get_leveling_questions,
+    get_wage_question,
+    get_all_questions,
+    get_job_positions,
+    determine_level,
 )
+from .QnA.judger import Judger, InterviewJudger
+from .QnA.decisions import DecisionEngine, FinalDecisions
+
+
+from .QnA.text_mining import(
+    analyze_sentiment,
+    calculate_relevance,
+    grading_formula,
+    extract_keywords,)
+
 from .QnA.decisions import DecisionEngine
 
 # -----------------------
@@ -51,21 +54,21 @@ from .frontend_loader import load_css, load_js
 from .logging.logger import get_logger, log_user_event  
 __all__ = [
     # QnA
-    "load_questions",
+    "get_questions_for_position",
+    "get_leveling_questions",
+    "get_wage_question",
+    "get_all_questions",
+    "get_job_positions",
+    "determine_level",
     "Judger",
-    "BasePreprocessor",
-    "Tokenizer",
-    "Stemmer",
-    "Lemmatizer",
-    "BagOfWords",
-    "TFIDF",
-    "BaseSentiment",
-    "RuleBasedSentiment",
-    "LDASentiment",
-    "BehavioralSentiment",
-    "behavioral_analyze",
+    "InterviewJudger",
     "DecisionEngine",
-
+    "FinalDecisions",
+    "analyze_sentiment",
+    "calculate_relevance",
+    "grading_formula",
+    "extract_keywords",
+    
     # IO Manager
     "write_csv",
     "append_csv",

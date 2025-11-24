@@ -11,9 +11,12 @@ from typing import List, Dict
 from pathlib import Path
 import os
 
-from .questions import load_questions
+from .questions import get_leveling_questions, load_questions
 from .text_mining import (
-    BehavioralSentiment, Tokenizer, Stemmer, Lemmatizer, behavioral_analyze
+    analyze_sentiment,
+    calculate_relevance,
+    grading_formula,
+    extract_keywords,
 )
 from .decisions import DecisionEngine
 from ..io_manager.csvio import ensure_csv, append_column
