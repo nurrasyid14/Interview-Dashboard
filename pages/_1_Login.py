@@ -1,9 +1,7 @@
-# pages/_1_Login.py
 import streamlit as st
 from app.modules.auth.auth_manager import create_user, verify_user, load_user
 from app.modules.utils.validators import validate_username, validate_password
 from app.modules.frontend_loader import render_template
-
 
 def render():
     # Decorative frontend HTML (visual). Inputs remain Streamlit widgets.
@@ -29,33 +27,38 @@ def render():
             password = st.text_input("Password", type="password")
             submit = st.form_submit_button("Login")
 
-        if submit:
-            if not username or not password:
-                st.error("Fill both fields")
-            else:
-                if verify_user(username, password):
-                    # set session values
-                    st.session_state.auth = True
-                    st.session_state.auth_user = username
-                    st.session_state.user_metadata = load_user(username) or {}
-                    st.session_state.identity_filled = st.session_state.user_metadata.get("identity_filled", False)
-
-                    # reset interview-related state
-                    st.session_state.interview_started = False
-                    st.session_state.interview_done = False
-                    st.session_state.completed = False
-                    st.session_state.final_report = None
-                    st.session_state.answers = []
-                    st.session_state.judger = None
-                    st.session_state.level = "leveling"
-                    st.session_state.q_index = 0
-                    st.session_state._leveling_count = 0
-
-                    # navigate to identity (use session-based signaling)
-                    st.session_state["next_page"] = "identity"
-                    st.rerun()
+            if submit:
+                if not username or not password:
+                    st.error("Fill both fields")
                 else:
-                    st.error("Invalid credentials")
+                    if verify_user(username, password):
+                        # set session values
+                        st.session_state.auth = True
+                        st.session_state.auth_user = username
+                        
+                        user_data = load_user(username) or {}
+                        st.session_state.user_metadata = user_data
+                        st.session_state.identity_filled = user_data.get("identity_filled", False)
+
+                        # reset interview-related state
+                        st.session_state.interview_started = False
+                        st.session_state.interview_done = False
+                        st.session_state.completed = False
+                        st.session_state.final_report = None
+                        st.session_state.answers = []
+                        st.session_state.judger = None
+                        st.session_state.level = "leveling"
+                        st.session_state.q_index = 0
+                        st.session_state._leveling_count = 0
+
+                        if st.session_state.identity_filled:
+                            st.session_state["next_page"] = "menu"
+                        else:
+                            st.session_state["next_page"] = "identity"
+                        
+                        st.rerun()
+                    else:
+                        st.error("Invalid credentials")
 
     # -------------------
     # SIGNUP TAB
@@ -67,16 +70,16 @@ def render():
             full_name = st.text_input("Full Name", key="su_name")
             signup = st.form_submit_button("Signup")
 
-        if signup:
-            if not (new_username and new_password):
-                st.error("Fill both fields")
-            elif not validate_username(new_username):
-                st.error("Invalid username (lowercase letters required)")
-            elif not validate_password(new_password, new_username):
-                st.error("Password too weak")
-            else:
-                try:
-                    create_user(new_username, new_password, full_name=full_name)
-                    st.success("Account created. Please login.")
-                except FileExistsError:
-                    st.error("Username exists")
+            if signup:
+                if not (new_username and new_password):
+                    st.error("Fill both fields")
+                elif not validate_username(new_username):
+                    st.error("Invalid username (lowercase letters required)")
+                elif not validate_password(new_password, new_username):
+                    st.error("Password too weak")
+                else:
+                    try:
+                        create_user(new_username, new_password, full_name=full_name)
+                        st.success("Account created. Please login.")
+                    except FileExistsError:
+                        st.error("Username exists")
