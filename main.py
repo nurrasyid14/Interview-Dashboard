@@ -46,7 +46,9 @@ if next_page:
     current_page = next_page
 else:
     # Allow external read-only query param to suggest a page, but do not rely on it for flow
-    query_page = st.query_params.get("page", [None])[0]
+    query_page = st.query_params.get("page", None)
+    if query_page:
+        query_page = query_page[0]  # first value only
 
     if not st.session_state.auth:
         current_page = "login"
