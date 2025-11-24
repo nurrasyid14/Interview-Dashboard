@@ -28,7 +28,7 @@ def render():
 
     col1, col2 = st.columns(2)
     if col1.button("Go to Menu"):
-        st.query_params(page="menu")
+        st.query_params['page']="menu"
         st.rerun()
     if col2.button("Logout"):
         st.session_state.clear()
