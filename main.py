@@ -1,4 +1,3 @@
-# main.py
 import streamlit as st
 
 # Optional: load CSS/JS (guard errors)
@@ -26,7 +25,6 @@ DEFAULT_KEYS = {
     "q_index": 0,
     "answers": [],
     "_leveling_count": 0,
-    # next_page: optional transient navigation signal
 }
 
 for k, default in DEFAULT_KEYS.items():
@@ -34,7 +32,7 @@ for k, default in DEFAULT_KEYS.items():
         st.session_state[k] = default
 
 # optional: hide Streamlit default sidebar
-st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
+st.markdown('<style> section[data-testid="stSidebar"]{display:none;} </style>', unsafe_allow_html=True)
 
 # -------------------------
 # Navigation: session-driven
@@ -45,15 +43,14 @@ next_page = st.session_state.pop("next_page", None)
 if next_page:
     current_page = next_page
 else:
-    # Allow external read-only query param to suggest a page, but do not rely on it for flow
-    query_page = st.query_params.get("page", [None])[0]
-
+    # Enforce strict flow: Login -> Identity -> Menu
     if not st.session_state.auth:
         current_page = "login"
     elif st.session_state.auth and not st.session_state.identity_filled:
         current_page = "identity"
     else:
-        # Authenticated and identity filled: choose
+        # Authenticated and identity filled: default to menu or allow navigation
+        query_page = st.query_params.get("page", None)
         if query_page in {"menu", "interview", "results", "dashboard"}:
             current_page = query_page
         else:
