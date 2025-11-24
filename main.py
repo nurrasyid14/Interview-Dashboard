@@ -1,11 +1,15 @@
+# main.py
 import streamlit as st
 from app.modules.frontend_loader import load_css, load_js
+from pages import render_page
 
-# Load CSS/JS globally
+# -------------------------
+# Load frontend assets
+# -------------------------
 load_css()
 load_js()
 
-# Hide sidebar
+# Hide default Streamlit sidebar
 st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
 
 # -------------------------
@@ -29,38 +33,27 @@ for key in session_keys:
 # -------------------------
 # Logout handler
 # -------------------------
-if st.session_state.get("auth") and st.query_params.get("logout") == ["1"]:
+query_params = st.query_params  # stable API
+if st.session_state.get("auth") and query_params.get("logout") == ["1"]:
     st.session_state.clear()
     st.rerun()
 
 # -------------------------
 # Determine current page
 # -------------------------
-current_page = st.query_params.get("page", ["login"])[0]
+current_page = query_params.get("page", ["login"])[0]
 
 # -------------------------
 # Routing logic
 # -------------------------
 if not st.session_state.auth:
-    from pages import _1_Login as login_page
-    login_page.render()
+    render_page("login")
 elif st.session_state.auth and not st.session_state.identity_filled:
-    from pages import _2_Identity as identity_page
-    identity_page.render()
+    render_page("identity")
 else:
-    if current_page == "menu":
-        from pages import _3_Menu as menu_page
-        menu_page.render()
-    elif current_page == "interview":
-        from pages import _4_Interview as interview_page
-        interview_page.render()
-    elif current_page == "result":
-        from pages import _5_Result as result_page
-        result_page.render()
-    elif current_page == "dashboard":
-        from pages import _6_Dashboard as dashboard_page
-        dashboard_page.render()
+    if current_page in ["menu", "interview", "result", "dashboard"]:
+        render_page(current_page)
     else:
-        # Default redirect to menu
-        st.experimental_set_query_params(page="menu")  # this is still supported as of now
+        # Default to menu
+        st.query_params = {"page": "menu"}  # stable API
         st.rerun()
