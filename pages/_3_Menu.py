@@ -2,22 +2,26 @@
 import streamlit as st
 
 def render():
+    st.set_page_config(page_title="Menu", layout="centered")
     st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
 
-    if not st.session_state.auth:
+    if not st.session_state.get("auth"):
         st.warning("Please login first.")
         st.stop()
 
-    st.title(f"Welcome, {st.session_state.auth_user}!")
+    st.title(f"Welcome, {st.session_state.get('auth_user')}!")
     st.info("Select an option below:")
 
     col1, col2, col3 = st.columns(3)
-    if col1.button("Dashboard"):
-        st.query_params['page']="dashboard"
+    if col1.button("Interview"):
+        st.session_state["next_page"] = "interview"
         st.rerun()
-    if col2.button("Interview"):
-        st.query_params['page']="interview"
+    if col2.button("Dashboard"):
+        st.session_state["next_page"] = "dashboard"
         st.rerun()
     if col3.button("Logout"):
-        st.session_state.clear()
+        # clear session and go to login
+        for k in list(st.session_state.keys()):
+            del st.session_state[k]
+        st.session_state["next_page"] = "login"
         st.rerun()

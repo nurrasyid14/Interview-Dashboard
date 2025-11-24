@@ -4,16 +4,15 @@ import streamlit as st
 def render():
     st.markdown('<style>section[data-testid="stSidebar"]{display:none;}</style>', unsafe_allow_html=True)
 
-    if not st.session_state.auth:
+    if not st.session_state.get("auth"):
         st.warning("Please login first.")
         st.stop()
 
-    if not st.session_state.completed or not st.session_state.final_report:
+    if not st.session_state.get("completed") or not st.session_state.get("final_report"):
         st.info("Interview not completed yet.")
         st.stop()
 
-    final_report = st.session_state.final_report
-
+    final_report = st.session_state.get("final_report", {})
     st.title("Interview Result")
     st.subheader("Final Report")
     st.json(final_report)
@@ -28,8 +27,8 @@ def render():
 
     col1, col2 = st.columns(2)
     if col1.button("Go to Menu"):
-        st.query_params['page']="menu"
+        st.session_state["next_page"] = "menu"
         st.rerun()
-    if col2.button("Logout"):
-        st.session_state.clear()
+    if col2.button("Go to Dashboard"):
+        st.session_state["next_page"] = "dashboard"
         st.rerun()
